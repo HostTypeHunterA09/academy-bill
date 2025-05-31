@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maharathi Academy Receipt</title>
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ff99cc; /* Changed body background-color to extend the receipt color */
+      display: flex;
+      flex-direction: column; /* Changed to column */
+      justify-content: flex-start; /* Align items to the start */
+      align-items: center; /* Center horizontally */
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+  .receipt-container {
+      background-color: #ff99cc;
+      color: #000;
+      padding: 25px 30px;
+      width: 100%;
+      max-width: 700px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      position: relative;
+      box-sizing: border-box;
+    }
+
+  .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  .logo img {
+      max-width: 100%;
+      height: auto;
+      max-height: 200px;
+    }
+
+    @media (min-width: 769px) {
+      .logo-container {
+            display: block;
+        }
+      .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            margin-bottom: 0;
+        }
+    }
+  .field-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+  .field-row label {
+      width: 130px;
+      font-size: 0.9em;
+      flex-shrink: 0;
+      padding-right: 10px;
+      box-sizing: border-box;
+    }
+
+  .field-row input[type="text"],
+  .field-row input[type="number"] {
+      flex: 1;
+      border: none;
+      border-bottom: 1px dashed #000;
+      background: transparent;
+      font-size: 0.9em;
+      color: #000;
+      padding: 4px 2px;
+      outline: none;
+      min-width: 100px;
+    }
+
+  .double-field {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+  .double-field.field-row {
+      flex: 1;
+      min-width: 280px;
+    }
+
+  .payment-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+  .payment-group.field-row {
+      flex: 1;
+      margin-right: 10px;
+      min-width: 250px;
+    }
+
+  .signature-box {
+      width: 150px;
+      height: 30px;
+      border: 1px solid #000;
+      background-color: transparent;
+      font-size: 0.9em;
+      color: #000;
+      text-align: center;
+      padding: 4px 6px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+  .received-by-container {
+      text-align: right;
+      margin-top: 20px;
+    }
+
+  .received-by-input {
+      width: 150px;
+      border: none;
+      border-bottom: 1px dashed #000;
+      background: transparent;
+      font-size: 0.9em;
+      color: #000;
+      padding: 4px 2px;
+      outline: none;
+      text-align: center;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+  .received-by {
+      font-size: 0.9em;
+    }
+
+  .top-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+  .top-header-left,
+  .top-header-right {
+      line-height: 1.5;
+    }
+
+  .top-header-right {
+      text-align: right;
+      line-height: 1.3;
+    }
+
+  .sno-line {
+      font-size: 0.95em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+  .sno-line input {
+      width: 100px;
+      flex-shrink: 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px dashed #000;
+      outline: none;
+      padding: 3px 1.5px;
+      font-size: 1em;
+      color: #000;
+    }
+
+  .company-info {
+      text-align: center;
+      margin-top: 5px;
+      flex-grow: 1;
+      min-width: 250px;
+    }
+
+  .company-info h1 {
+      margin: 4px 0;
+      font-size: 1.4em;
+    }
+
+  .company-info p {
+      margin: 2px 0;
+      font-size: 0.95em;
+    }
+
+  .non-refundable-box {
+      display: inline-block;
+      padding: 4px 12px;
+      border: 2px solid #000;
+      font-weight: bold;
+      font-size: 0.85em;
+      border-radius: 8px;
+      text-align: center;
+      background-color: #ff99cc;
+      white-space: nowrap;
+    }
+
+  .non-refundable-line {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+  .non-refundable-line::before,
+  .non-refundable-line::after {
+      content: '';
+      flex: 1;
+      border-top: 2px solid #000;
+      height: 1px;
+    }
+
+  .non-refundable-line::before {
+      margin-right: 10px;
+      border-radius: 20px 0 0 20px;
+    }
+
+  .non-refundable-line::after {
+      margin-left: 10px;
+      border-radius: 0 20px 20px 0;
+    }
+
+  .date-info {
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+
+  .date-info.field-row {
+      width: auto;
+    }
+
+  .date-info input[type="text"] {
+      width: 150px;
+    }
+
+    /* Media Queries for Responsiveness */
+
+    @media (max-width: 768px) {
+      .receipt-container {
+            padding: 20px;
+        }
+
+      .top-header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+        }
+
+      .top-header-left,
+      .top-header-right {
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Adjustments for the contact numbers */
+      .top-header-right div {
+            text-align: center; /* Center aligns the phone numbers */
+        }
+
+      .sno-line {
+            justify-content: center;
+            width: 100%;
+        }
+
+      .company-info {
+            margin-top: 15px;
+            order: -1;
+        }
+
+        /* Align "PAN No." to center on mobile */
+      .receipt-container > div:nth-of-type(2) { /* Selects the div containing PAN No. */
+            text-align: center;
+            margin-top: 10px; /* Add some space above it */
+            margin-bottom: 10px; /* Add some space below it */
+        }
+
+
+      .double-field {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+      .double-field.field-row,
+      .payment-group.field-row {
+            min-width: unset;
+            width: 100%;
+            margin-right: 0;
+        }
+
+      .field-row label {
+            width: 100%;
+            margin-bottom: 5px;
+            padding-right: 0;
+        }
+
+      .field-row input[type="text"],
+      .field-row input[type="number"] {
+            width: 100%;
+        }
+
+      .payment-group {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+      .payment-group div:last-child {
+            margin-top: 10px;
+        }
+
+      .signature-box {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+      .date-info {
+            align-items: center; /* Center align the date rows */
+            margin-bottom: 10px; /* Reduce margin-bottom */
+        }
+
+      .date-info.field-row {
+            flex-direction: column; /* Stack label and input for date fields */
+            align-items: center; /* Center align items within date field-row */
+            width: 100%; /* Make date field-row take full width */
+        }
+
+      .date-info label {
+            margin-bottom: 2px; /* Reduce space below date label */
+        }
+
+      .received-by-container {
+            text-align: center;
+        }
+
+      .received-by-input {
+            width: 80%;
+            max-width: 200px;
+        }
+    }
+
+    @media (max-width: 480px) {
+      .receipt-container {
+            padding: 15px;
+        }
+
+      .company-info h1 {
+            font-size: 1.2em;
+        }
+
+      .company-info p {
+            font-size: 0.85em;
+        }
+
+      .non-refundable-box {
+            font-size: 0.75em;
+            padding: 4px 8px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <div class="logo">
+      <a href="logo.png">
+        <img src="logo.png" alt="Universal Academy & Computer Center Logo">
+      </a>
+    </div>
+  </div>
+
+  <div class="receipt-container">
+    <div class="top-header">
+      <div class="top-header-left">
+        <div class="sno-line">
+          <label for="bill-sno"><strong>S.No.</strong></label>
+          <input type="number" id="bill-sno" name="sno">
+        </div>
+      </div>
+
+      <div class="company-info">
+        <h1>Maharathi Academy &amp; Computer Center</h1>
+        <p>Biratnagar-00, Bhairav Chowk, Morang, Nepal</p>
+        <p>E-mail:maharathi.academy009@gmail.com</p>
+      </div>
+
+      <div class="top-header-right">
+        <div>021-461321</div>
+        <div>9842335552</div>
+        <div>9810548303</div>
+      </div>
+    </div>
+
+    <div><strong>PAN No.</strong> 096127350</div>
+
+    <div class="date-info">
+      <div class="field-row">
+        <label style="width: auto;">Date: A.D.</label>
+        <input type="text" id="bill-date-ad">
+      </div>
+      <div class="field-row">
+        <label style="width: auto;">Date: B.S.</label>
+        <input type="text" id="bill-date-bs">
+      </div>
+    </div>
+
+    <div class="non-refundable-line">
+      <div class="non-refundable-box">Non-Refundable Cash Receipt</div>
+    </div>
+
+    <div class="field-row"><label>Name:</label><input type="text" id="bill-name"></div>
+
+    <div class="double-field">
+      <div class="field-row"><label>Address:</label><input type="text" id="bill-address"></div>
+      <div class="field-row"><label>Contact No.:</label><input type="text" id="bill-contact-no"></div>
+    </div>
+
+    <div class="double-field">
+      <div class="field-row"><label>Course:</label><input type="text" id="bill-course"></div>
+      <div class="field-row"><label>Course Durations:</label><input type="text" id="bill-course-duration"></div>
+    </div>
+
+    <div class="payment-group">
+      <div class="field-row">
+        <label>Descriptions:</label>
+        <input type="text" id="bill-descriptions">
+      </div>
+      <div style="white-space: nowrap;">
+        <label>By Cash / Cheque / E-Sewa</label>
+      </div>
+    </div>
+
+    <div class="payment-group">
+      <div class="field-row">
+        <label>Amount in words:</label>
+        <input type="text" id="bill-amount-words">
+      </div>
+      <input type="number" class="signature-box" id="bill-amount-numeric">
+    </div>
+
+    <div class="double-field">
+      <div class="field-row">
+        <label>Remaining Fee:</label>
+        <input type="text" id="bill-remaining-fee">
+      </div>
+      <div class="field-row">
+        <label>Next Due Date:</label>
+        <input type="text" id="bill-next-due-date">
+      </div>
+    </div>
+    
+    <div class="field-row"><label>Reference:</label><input type="text" id="bill-reference"></div>
+
+    <div class="received-by-container">
+      <input type="text" id="bill-received-by" class="received-by-input" placeholder="Received By Name">
+      <div class="received-by">Received By</div>
+    </div>
+  </div>
+
+  <script>
+    // Function to get URL parameters
+    function getUrlParams() {
+      const params = {};
+      const queryString = window.location.search.substring(1);
+      queryString.split('&').forEach(pair => {
+        const [key, value] = pair.split('=').map(decodeURIComponent);
+        // FIX: Replace '+' with space for values that might contain them, after decodeURIComponent
+        params[key] = value? value.replace(/\+/g, ' ') : ''; 
+      });
+      return params;
+    }
+
+    // Function to populate fields based on URL parameters
+    function populateFields() {
+      const params = getUrlParams();
+      const fieldMap = {
+        billId: 'bill-sno',
+        dateAD: 'bill-date-ad',
+        dateBS: 'bill-date-bs',
+        studentName: 'bill-name',
+        address: 'bill-address',
+        contactNo: 'bill-contact-no',
+        course: 'bill-course',
+        courseDuration: 'bill-course-duration',
+        descriptions: 'bill-descriptions',
+        amountWords: 'bill-amount-words',
+        amountNumeric: 'bill-amount-numeric',
+        remainingFee: 'bill-remaining-fee',
+        nextDueDate: 'bill-next-due-date',
+        reference: 'bill-reference',
+        receivedBy: 'bill-received-by'
+      };
+
+      for (const paramName in fieldMap) {
+        const inputId = fieldMap[paramName];
+        const inputValue = params[paramName];
+        const inputElement = document.getElementById(inputId);
+
+        if (inputElement && inputValue!== undefined) { // Check for undefined to allow empty strings
+          inputElement.value = inputValue;
+        }
+      }
+    }
+
+    // Call populateFields when the page finishes loading
+    document.addEventListener('DOMContentLoaded', populateFields);
+  </script>
+</body>
+</html>
